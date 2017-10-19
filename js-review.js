@@ -134,9 +134,57 @@ Triangle.prototype = new TwoDShape();
 
 /********************************************************************************************************************** */
 
+// ********************* EMCASCRIPT 6 ********************************* //
 
 // ES6 TERNARY OPERATOR 
 
 result = (condition) ? 'something' : 'somethingelse';
 //is result condition true?         if not, do something else.
-                                   // The two possible results come last, separated by a colon (:).
+                                   // The two possible results come last, separated by a colon (:)
+
+// ES6 CLASS
+
+class Drone {
+    constructor (id, name){ // automatically executes when creating new properties
+        this.id = id;
+        this.name = name;
+    }
+
+    fly () {
+        console.log('Drone ' + this.id + 'is flying');
+    }
+}
+
+let drone = new Drone('A123', 'Flyer');
+let drone2 = new Drone('B456', 'Twirl');
+
+drone.fly();
+drone2.fly();
+
+
+// ES6 CLASS GETTERS AND SETTERS 
+
+// can be used for validation, login, or setting or getting properties. 
+
+class Drone {
+    constructor (id, name){
+        this._id = id; // setup id here
+    }
+
+    // create a new property that behaves like a function 
+
+    get id() {
+        console.log('in id getter');
+        return this._id + 'TEMPORARY';
+    }
+
+    // Just like a getter, a setter is used to execute a function when we set a value. 
+
+    set id (value) {
+        this._id = value; // will be set to new value once invoked below with drone.id = 'B456';
+    }
+}
+
+let drone = new Drone('A123');
+drone.id = 'B456'; // our setter was invoked to print new id
+console.log('drone id: ' + drone.id);
