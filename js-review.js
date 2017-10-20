@@ -188,3 +188,84 @@ class Drone {
 let drone = new Drone('A123');
 drone.id = 'B456'; // our setter was invoked to print new id
 console.log('drone id: ' + drone.id);
+
+
+// Class Inheritance 
+
+Class Vehicle {
+    constructor () {
+        this.gpsEnabled = true;
+    }
+}
+
+class Drone extends Vehicle {
+
+}
+
+// derived constructor must call super ()
+class Car extends Vehicle {
+    constructor (){
+        super(); // special function called to make sure Vehicle constructor gets called first, requirment.
+        console.log('constructing Car');
+    }
+}
+
+let c = new Car();
+
+
+// Class Inheritance properties
+
+Class Vehicle {
+    constructor () {
+        this.gpsEnabled = true;
+    }
+}
+
+class Drone extends Vehicle {
+
+}
+
+class Car extends Vehicle {
+    constructor (){
+        super(); 
+        this.gpsEnabled = false; // super overides to false, takes over 
+    }
+}
+
+let c = new Car();
+console.log(c.gpsEnabled);
+
+
+
+// Class Inheritance methods 
+
+
+class Vehicle {
+    start () {
+        console.log('starting Vehicle');
+    }
+     /* Static method we access that within the name Vehicle itself because it's static, doesn't belong to
+      an instance of vehicle, belongs directly on vehicle. 
+      
+      Static method on vehicle is accessible by any derived class, in this case Car as shown below when
+      calling Car.getCompanyName();
+      */
+    static getCompanyName() {
+        console.log('My Company');
+    }
+}
+
+class Car extends Vehicle {
+    start () {
+        super.start(); // super calls first 
+        console.log('starting car');
+    }
+
+    static getCompanyName() { 
+        super.getCompanyName();
+        console.log('My Other Company');
+    }
+}
+
+let c = new Car(); // creating a new car and assigning it to C
+Car.getCompanyName(); //trying to execute static method from Vehicle class, will work fine. 
