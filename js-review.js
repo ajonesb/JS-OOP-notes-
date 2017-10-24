@@ -292,3 +292,64 @@ class Car extends Vehicle {
 
 let c = new Car(); // creating a new car and assigning it to C
 Car.getCompanyName(); //trying to execute static method from Vehicle class, will work fine. 
+
+
+// COMPOSITION 
+
+const dog = { // creates a new object for dog variable 
+	name: 'Fido',
+	breed: 'Collie',
+  	collar: { // new object for collar 
+      color: 'red',
+      shape: 'pendant'  
+  	},
+  	tail: { // new object for tail 
+      length: {  // another level of composition for our dogs tail, it has a length object which is defined by it's value and unit.
+          value: 10,
+          unit: 'cm'
+      },
+    status : 'wagging'
+  	}
+};
+
+
+// Achieving The Same Composition Programatically 
+
+// Here we make use of default values for almost all our constructors.
+
+const Collar = ({shape='pendant', color='blue'}) => {
+    return {
+        shape, 
+        color
+    };
+};
+
+const Length = ({value=0, unit='cm'}) => {
+    return {
+        value,
+        unit
+    };
+};
+
+const Tail = ({tailLength, status}) => {
+    const length = Length({value: tailLength});
+    return {
+        length,
+        status
+    };
+};
+
+const Dog = (name, breed,sound) => {
+   const bark = () => console.log(sound);
+   const tail = Tail({
+       tailLength : 10,
+       status : 'wagging'
+   });
+   const collar = Collar({color: 'red'});
+   return {
+       name, breed,bark,tail,collar
+   }
+};
+
+
+const dog = Dog('Fido', 'Collie', 'Grrr');
